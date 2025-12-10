@@ -317,7 +317,7 @@
         // ***************************************************************
         // !!! URL DE LA APLICACIÓN WEB GENERADA EN GOOGLE APPS SCRIPT !!!
         // ***************************************************************
-        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmIzmE2IhvlzJZnWXLFZ8_ZYLZvEkJDhrmeV5sJtPSfz7qMMjKWTfJop5joXcB5x9/exec'; // <-- ¡URL CORRECTA PEGADA AQUÍ!
+        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmIzmE2IhvlzJZnWXLFZ8_ZYLZvEkJDhrmeV5sJtPSfz7qMMjKWTfJop5joXcB5x9/exec'; 
 
         // --- ESTADO DE LA APLICACIÓN ---
         let currentCourt = 'indoor';
@@ -340,7 +340,14 @@
             document.getElementById('modal').classList.add('hidden');
         }
 
-        const formatDate = (date) => date.toISOString().split('T')[0];
+        // --- FIX DE ZONA HORARIA/FECHA: Corrige el desfase de 1 día ---
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+        // --- FIN FIX DE ZONA HORARIA/FECHA ---
 
         const formatDayHeader = (date) => {
             return date.toLocaleDateString('es-AR', {
@@ -414,8 +421,7 @@
                     phone: reservationData.phone
                 };
                 
-                // Nota: Usamos POST con mode: 'no-cors' porque Google Apps Script no devuelve headers CORS por defecto.
-                // Esto impide que el navegador vea la respuesta, pero garantiza que la petición se envíe y se registre.
+                // Nota: Usamos POST con mode: 'no-cors' para asegurar que la solicitud se envíe.
                 const response = await fetch(GOOGLE_APP_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
