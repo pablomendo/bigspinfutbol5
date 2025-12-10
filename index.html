@@ -11,12 +11,12 @@
     <style>
         :root {
             --color-primary: #fcd34d; /* Amarillo de Big Spin */
-            --color-dark: #111827; /* Gris muy oscuro / casi negro (similar a Samaa Padel) */
-            --color-card: #1f2937; /* Gris oscuro para cards */
-            --color-text-light: #e5e7eb; /* Gris claro para texto */
-            --color-available: #10b981; /* Verde esmeralda para disponible */
-            --color-reserved: #dc2626; /* Rojo para reservado */
-            --color-closed: #4b5563; /* Gris para cerrado */
+            --color-dark: #111827;
+            --color-card: #1f2937; 
+            --color-text-light: #e5e7eb; 
+            --color-available: #10b981; 
+            --color-reserved: #dc2626; 
+            --color-closed: #4b5563; 
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -27,7 +27,7 @@
         .text-primary { color: var(--color-primary); }
         .bg-primary { background-color: var(--color-primary); }
         .border-primary { border-color: var(--color-primary); }
-        .card { background-color: var(--color-card); } /* Nuevo estilo de tarjeta */
+        .card { background-color: var(--color-card); }
         
         /* Estilos específicos para slots */
         .hour-slot {
@@ -146,31 +146,3 @@
 
             <!-- Datos rápidos en la parte inferior del hero -->
             <div class="absolute bottom-0 left-0 right-0 p-4 card/50 backdrop-blur-sm">
-                <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm font-medium">
-                    <p class="text-primary">✓ Césped Sintético Pro</p>
-                    <p class="text-primary">✓ Iluminación LED</p>
-                    <p class="text-primary">✓ Colectora Norte, Acceso Oeste 37568, Gral. Rodríguez</p>
-                    <p class="text-primary">✓ Vestuarios & Bar</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Fin Home / Hero Section -->
-
-
-    <!-- Content Wrapper -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-20">
-    
-        <!-- 2. Canchas e Instalaciones (Galería más organizada) -->
-        <section id="canchas" class="pt-16">
-            <h2 class="text-4xl font-bold text-center mb-12 text-white">Nuestras <span class="text-primary">Canchas</span> e Instalaciones</h2>
-            
-            <div class="space-y-12">
-                
-                <!-- Cancha Techada -->
-                <div class="grid md:grid-cols-2 gap-8 items-center card p-6 rounded-2xl shadow-xl border border-gray-700">
-                    <img src="assets/cancha-techada.jpeg" alt="Cancha Techada" class="w-full h-72 object-cover rounded-xl shadow-lg border-2 border-primary/50">
-                    <div>
-                        <h3 class="text-3xl font-bold text-primary mb-3">Cancha Techada (Premium)</h3>
-                        <p class="text-gray-300">
-                            Fútbol 5 sin importar el clima. Nuestra cancha techada cuenta con un cerramiento total, **césped sintético de última generación** y un sistema de
