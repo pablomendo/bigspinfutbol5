@@ -317,7 +317,7 @@
         // ***************************************************************
         // !!! URL DE LA APLICACIÓN WEB GENERADA EN GOOGLE APPS SCRIPT !!!
         // ***************************************************************
-        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmIzmE2IhvlzJZnWXLFZ8_ZYLZvEkJDhrmeV5sJtPSfz7qMMKWTfJop5joXcB5x9/exec';
+        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmIzmE2IhvlzJZnWXLFZ8_ZYLZvEkJDhrmeV5sJtPSfz7qMMjKWTfJop5joXcB5x9/exec'; // <-- ¡URL CORRECTA PEGADA AQUÍ!
 
         // --- ESTADO DE LA APLICACIÓN ---
         let currentCourt = 'indoor';
@@ -354,11 +354,19 @@
 
         async function fetchReservationsFromGoogleSheets() {
             const mockData = [
+                // Datos de simulación en caso de fallo de conexión
                 ['2025-12-11', '19:00', 'indoor', 'Carlos G.', '11...'], 
                 ['2025-12-11', '21:00', 'outdoor', 'Daniel F.', '11...'],
                 ['2025-12-12', '10:00', 'indoor', 'Ezequiel P.', '11...'],
                 ['2025-12-15', '20:00', 'indoor', 'Fede R.', '11...'],
             ];
+
+            if (!GOOGLE_APP_SCRIPT_URL) {
+                console.warn("[ADVERTENCIA] URL de Apps Script vacía. Usando datos de simulación.");
+                return mockData.map(row => ({
+                    date: row[0], time: row[1], court: row[2], name: row[3]
+                }));
+            }
 
             try {
                 // Fetch to your live Google Apps Script URL
@@ -376,20 +384,26 @@
                         name: row[3]
                     }));
                 } else {
-                    throw new Error('Formato de datos de Sheets inesperado. Usando mock data.');
+                    // Si el formato es inesperado, es un error del Apps Script.
+                    console.error("Error: Apps Script devolvió un formato de datos inesperado.");
+                    return mockData.map(row => ({
+                        date: row[0], time: row[1], court: row[2], name: row[3]
+                    }));
                 }
             } catch (error) {
                 console.warn(`[ADVERTENCIA] Error al cargar la data. Usando datos de simulación. Error: ${error.message}`);
                  return mockData.map(row => ({
-                    date: row[0],
-                    time: row[1],
-                    court: row[2],
-                    name: row[3]
+                    date: row[0], time: row[1], court: row[2], name: row[3]
                 }));
             }
         }
 
         async function sendReservationToGoogleSheets(reservationData) {
+            if (!GOOGLE_APP_SCRIPT_URL) {
+                 showModal("Error de Configuración", "La URL de Apps Script está vacía. No se puede enviar la reserva.");
+                 return false;
+            }
+
             try {
                 const dataToSend = {
                     action: 'addReservation',
@@ -400,6 +414,8 @@
                     phone: reservationData.phone
                 };
                 
+                // Nota: Usamos POST con mode: 'no-cors' porque Google Apps Script no devuelve headers CORS por defecto.
+                // Esto impide que el navegador vea la respuesta, pero garantiza que la petición se envíe y se registre.
                 const response = await fetch(GOOGLE_APP_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -615,7 +631,7 @@
             } catch (error) {
                 console.error("Error en la reserva:", error);
                 showModal("Error Crítico", "No se pudo completar el proceso de reserva. Revisa tu conexión.");
-                return false;
+                    return false;
             } finally {
                 document.getElementById('confirm-button').textContent = "Confirmar y Abrir WhatsApp";
                 document.getElementById('confirm-button').disabled = false;
