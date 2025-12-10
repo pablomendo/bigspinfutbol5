@@ -11,7 +11,8 @@
     <style>
         :root {
             --color-primary: #fcd34d; /* Amarillo de Big Spin */
-            --color-dark: #1f2937; /* Gris oscuro / fondo */
+            --color-dark: #111827; /* Gris muy oscuro / casi negro (similar a Samaa Padel) */
+            --color-card: #1f2937; /* Gris oscuro para cards */
             --color-text-light: #e5e7eb; /* Gris claro para texto */
             --color-available: #10b981; /* Verde esmeralda para disponible */
             --color-reserved: #dc2626; /* Rojo para reservado */
@@ -26,6 +27,9 @@
         .text-primary { color: var(--color-primary); }
         .bg-primary { background-color: var(--color-primary); }
         .border-primary { border-color: var(--color-primary); }
+        .card { background-color: var(--color-card); } /* Nuevo estilo de tarjeta */
+        
+        /* Estilos específicos para slots */
         .hour-slot {
             transition: all 0.2s ease-in-out;
             cursor: pointer;
@@ -54,103 +58,207 @@
         }
         .selected-slot {
             background-color: var(--color-primary) !important;
-            color: #111827 !important;
+            color: var(--color-dark) !important;
             font-weight: 700;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-0">
+    
+    <!-- Navigation Bar (Fixed Top) -->
+    <nav class="sticky top-0 z-50 card shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center space-x-2">
+                    <img src="assets/logo.png" alt="Logo Big Spin" class="h-8">
+                    <span class="text-xl font-bold text-white tracking-wider">BIG <span class="text-primary">SPIN</span></span>
+                </a>
+                
+                <!-- Menu Links -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-gray-300 hover:text-primary transition-colors py-2 font-medium">Home</a>
+                    <a href="#canchas" class="text-gray-300 hover:text-primary transition-colors py-2 font-medium">Canchas</a>
+                    <a href="#reservas" class="py-2 px-4 rounded-full bg-primary text-gray-900 font-bold hover:bg-yellow-300 transition-colors">¡Reservar!</a>
+                </div>
 
-    <!-- Header Section -->
-    <header class="mb-8 p-4 bg-gray-800 shadow-xl rounded-xl flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center space-x-4">
-            <!-- Logo Big Spin - RUTA ACTUALIZADA -->
-            <img src="assets/logo.png" alt="Logo Big Spin" class="h-10">
-            <h1 class="text-3xl font-bold text-white tracking-wider">BIG <span class="text-primary">SPIN</span></h1>
-        </div>
-        <p class="text-gray-400 mt-2 md:mt-0">Reserva de Canchas de Fútbol (10:00h - 24:00h Lun-Sáb)</p>
-    </header>
-
-    <!-- Main Content: Calendar and Sidebar -->
-    <main class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-        <!-- Calendar Area (3/4 width on desktop) -->
-        <section class="lg:col-span-3">
-            <h2 class="text-2xl font-semibold mb-4 text-primary">Calendario de Turnos</h2>
-
-            <!-- Court Selection Tabs -->
-            <div id="court-selector" class="flex space-x-4 mb-6 p-2 bg-gray-800 rounded-xl shadow-inner">
-                <button data-court="indoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors bg-primary text-gray-900 shadow-lg" onclick="selectCourt('indoor')">
-                    Cancha Techada
-                </button>
-                <button data-court="outdoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors text-gray-300 hover:bg-gray-700" onclick="selectCourt('outdoor')">
-                    Cancha al Aire Libre
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full card shadow-lg">
+            <a href="#home" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-primary" onclick="toggleMobileMenu()">Home</a>
+            <a href="#canchas" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-primary" onclick="toggleMobileMenu()">Canchas</a>
+            <a href="#reservas" class="block px-4 py-2 bg-primary text-gray-900 font-bold hover:bg-yellow-300" onclick="toggleMobileMenu()">¡Reservar!</a>
+        </div>
+    </nav>
 
-            <!-- Calendar Display -->
-            <div id="calendar-container" class="space-y-6">
-                <!-- Days will be generated here -->
+    <!-- Content Wrapper -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    
+        <!-- 1. Home / Presentación -->
+        <section id="home" class="pt-16 md:pt-24 min-h-[60vh] flex items-center">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight text-white">
+                        Tu Próximo Partido te Espera en <span class="text-primary">BIG SPIN</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-6">
+                        El mejor complejo de fútbol 5 en General Rodríguez. Contamos con una cancha techada premium y una al aire libre, disponibles para vos y tu equipo.
+                    </p>
+                    <div class="flex items-center space-x-3 text-gray-300 mt-4">
+                        <!-- Icono de ubicación (simulado con SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.727A8 8 0 016.343 5.273v0A8 8 0 0117.657 16.727zM12 13a3 3 0 100-6 3 3 0 000 6z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" />
+                        </svg>
+                        <p class="font-semibold">
+                            Dirección: <span class="text-primary">Colectora Este 37568, Gral. Rodríguez</span>
+                        </p>
+                    </div>
+                    <a href="#reservas" class="mt-8 inline-block py-3 px-8 bg-primary text-gray-900 font-bold rounded-full shadow-lg hover:bg-yellow-300 transition-colors transform hover:scale-105">
+                        Ver Turnos Disponibles
+                    </a>
+                </div>
+                <!-- Imagen de impacto (Cancha Techada) -->
+                <div class="hidden md:block">
+                    <img src="assets/cancha-techada.jpeg" alt="Cancha Techada Big Spin" class="w-full h-auto rounded-xl shadow-2xl border-2 border-primary/50 object-cover">
+                </div>
             </div>
         </section>
 
-        <!-- Sidebar/Reservation Form (1/4 width on desktop) -->
-        <aside class="lg:col-span-1 sticky top-8 h-fit">
-            <div class="p-6 bg-gray-800 rounded-xl shadow-2xl">
-                <h2 class="text-xl font-semibold mb-4 text-primary">Tu Reserva</h2>
-
-                <div id="selected-reservation" class="mb-4 p-3 bg-gray-900 rounded-lg hidden">
-                    <p class="text-gray-400 text-sm">Cancha:</p>
-                    <p id="reserve-court" class="text-lg font-bold mb-1"></p>
-                    <p class="text-gray-400 text-sm">Fecha y Hora:</p>
-                    <p id="reserve-datetime" class="text-lg font-bold text-primary"></p>
-                </div>
-
-                <div id="no-selection-message" class="mb-4 p-3 bg-gray-900 rounded-lg text-center text-gray-400">
-                    Selecciona un turno disponible en el calendario.
-                </div>
-
-                <!-- Reservation Form -->
-                <form id="reservation-form" class="mt-4 hidden">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Tu Nombre:</label>
-                        <input type="text" id="name" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: Juan Pérez">
-                    </div>
-                    <div class="mb-6">
-                        <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Teléfono (con código de área):</label>
-                        <input type="tel" id="phone" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: 5491123456789">
-                        <p class="text-xs text-gray-500 mt-1">Lo usaremos para abrir WhatsApp y confirmar la reserva.</p>
-                    </div>
-
-                    <button type="submit" id="confirm-button" class="w-full py-3 bg-primary text-gray-900 font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition-colors">
-                        Confirmar y Abrir WhatsApp
-                    </button>
-                </form>
-
-                <!-- Modal / Message Box for Confirmation -->
-                <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal()">
-                    <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full" onclick="event.stopPropagation()">
-                        <h3 id="modal-title" class="text-xl font-semibold mb-4 text-primary"></h3>
-                        <p id="modal-message" class="text-gray-300 mb-6"></p>
-                        <button class="w-full py-2 bg-primary text-gray-900 font-semibold rounded-lg" onclick="closeModal()">Cerrar</button>
+        <!-- 2. Canchas e Instalaciones (Galería más organizada) -->
+        <section id="canchas" class="pt-16">
+            <h2 class="text-4xl font-bold text-center mb-10 text-white">Nuestras <span class="text-primary">Canchas</span> e Instalaciones</h2>
+            
+            <div class="space-y-12">
+                
+                <!-- Cancha Techada -->
+                <div class="grid md:grid-cols-2 gap-8 items-center card p-6 rounded-2xl shadow-xl">
+                    <img src="assets/cancha-techada.jpeg" alt="Cancha Techada" class="w-full h-64 object-cover rounded-xl shadow-lg border border-gray-700">
+                    <div>
+                        <h3 class="text-3xl font-bold text-primary mb-3">Cancha Techada (Premium)</h3>
+                        <p class="text-gray-300">
+                            No dejes que el clima arruine tu partido. Nuestra cancha techada ofrece césped sintético de alta calidad, iluminación LED de última generación y un ambiente climatizado para que juegues con total comodidad, cualquier día del año.
+                        </p>
                     </div>
                 </div>
 
+                <!-- Cancha al Aire Libre -->
+                <div class="grid md:grid-cols-2 gap-8 items-center card p-6 rounded-2xl shadow-xl">
+                    <div class="md:order-2">
+                        <img src="assets/cancha-exterior.jpeg" alt="Cancha Exterior de Noche" class="w-full h-64 object-cover rounded-xl shadow-lg border border-gray-700">
+                    </div>
+                    <div class="md:order-1">
+                        <h3 class="text-3xl font-bold text-primary mb-3">Cancha al Aire Libre</h3>
+                        <p class="text-gray-300">
+                            Ideal para disfrutar de las noches templadas. Césped en perfectas condiciones y torres de iluminación profesional que simulan la luz del día. Vive la experiencia del fútbol tradicional bajo las estrellas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Vestuarios y Área Social -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
+                    <div class="card p-6 rounded-xl shadow-lg">
+                         <img src="assets/vestuario.jpeg" alt="Vestuarios Modernos" class="w-full h-40 object-cover rounded-lg mb-4">
+                         <h4 class="text-xl font-bold text-white mb-2">Vestuarios Modernos</h4>
+                         <p class="text-gray-400 text-sm">Espacios amplios y limpios, ideales para ducharse y prepararse antes y después de cada encuentro.</p>
+                    </div>
+                    <div class="card p-6 rounded-xl shadow-lg">
+                        <img src="assets/area-descanso.jpeg" alt="Área de descanso y bar" class="w-full h-40 object-cover rounded-lg mb-4">
+                        <h4 class="text-xl font-bold text-white mb-2">Área de Descanso / Bar</h4>
+                        <p class="text-gray-400 text-sm">Refrescos y snacks disponibles. El punto de encuentro perfecto para el tercer tiempo.</p>
+                    </div>
+                </div>
+                
             </div>
-        </aside>
+        </section>
 
-    </main>
+        <!-- 3. Calendario de Reservas (Mantenemos la funcionalidad) -->
+        <section id="reservas" class="pt-16">
+            <h2 class="text-4xl font-bold text-center mb-10 text-white">Reservá Tu Turno</h2>
 
-    <!-- Photo Gallery (Vestuarios, Canchas) - RUTAS ACTUALIZADAS -->
-    <section class="mt-12">
-        <h2 class="text-2xl font-semibold mb-4 text-primary">Instalaciones Big Spin</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <img src="assets/cancha-techada.jpeg" alt="Cancha Techada" class="w-full h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-            <img src="assets/cancha-exterior.jpeg" alt="Cancha Exterior de Noche" class="w-full h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-            <img src="assets/vestuario.jpeg" alt="Vestuarios Modernos" class="w-full h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-            <img src="assets/area-descanso.jpeg" alt="Área de descanso y bar" class="w-full h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-        </div>
-    </section>
+            <main class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                <!-- Calendar Area (3/4 width on desktop) -->
+                <div class="lg:col-span-3">
+                    <h3 class="text-2xl font-semibold mb-4 text-primary">Selecciona Cancha y Horario</h3>
+
+                    <!-- Court Selection Tabs -->
+                    <div id="court-selector" class="flex space-x-4 mb-6 p-2 card rounded-xl shadow-inner">
+                        <button data-court="indoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors bg-primary text-gray-900 shadow-lg" onclick="selectCourt('indoor')">
+                            Cancha Techada
+                        </button>
+                        <button data-court="outdoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors text-gray-300 hover:bg-gray-700" onclick="selectCourt('outdoor')">
+                            Cancha al Aire Libre
+                        </button>
+                    </div>
+
+                    <!-- Calendar Display -->
+                    <div id="calendar-container" class="space-y-6">
+                        <!-- Days will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Sidebar/Reservation Form (1/4 width on desktop) -->
+                <aside class="lg:col-span-1 sticky top-20 h-fit">
+                    <div class="p-6 card rounded-xl shadow-2xl">
+                        <h3 class="text-xl font-semibold mb-4 text-primary">Confirmar Reserva</h3>
+
+                        <div id="selected-reservation" class="mb-4 p-3 bg-gray-900 rounded-lg hidden">
+                            <p class="text-gray-400 text-sm">Cancha:</p>
+                            <p id="reserve-court" class="text-lg font-bold mb-1"></p>
+                            <p class="text-gray-400 text-sm">Fecha y Hora:</p>
+                            <p id="reserve-datetime" class="text-lg font-bold text-primary"></p>
+                        </div>
+
+                        <div id="no-selection-message" class="mb-4 p-3 bg-gray-900 rounded-lg text-center text-gray-400">
+                            Selecciona un turno disponible en el calendario.
+                        </div>
+
+                        <!-- Reservation Form -->
+                        <form id="reservation-form" class="mt-4 hidden">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Tu Nombre:</label>
+                                <input type="text" id="name" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: Juan Pérez">
+                            </div>
+                            <div class="mb-6">
+                                <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Teléfono (con código de área):</label>
+                                <input type="tel" id="phone" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: 5491123456789">
+                                <p class="text-xs text-gray-500 mt-1">Lo usaremos para abrir WhatsApp y confirmar la reserva.</p>
+                            </div>
+
+                            <button type="submit" id="confirm-button" class="w-full py-3 bg-primary text-gray-900 font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition-colors">
+                                Confirmar y Abrir WhatsApp
+                            </button>
+                        </form>
+
+                        <!-- Modal / Message Box for Confirmation -->
+                        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal()">
+                            <div class="card p-6 rounded-xl shadow-2xl max-w-sm w-full" onclick="event.stopPropagation()">
+                                <h3 id="modal-title" class="text-xl font-semibold mb-4 text-primary"></h3>
+                                <p id="modal-message" class="text-gray-300 mb-6"></p>
+                                <button class="w-full py-2 bg-primary text-gray-900 font-semibold rounded-lg" onclick="closeModal()">Cerrar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+            </main>
+        </section>
+
+    </div>
+    <!-- Fin Content Wrapper -->
+    
+    <!-- Footer Section -->
+    <footer class="mt-8 p-6 text-center text-gray-400 border-t border-gray-700 card">
+        <p>&copy; 2025 Big Spin. Todos los derechos reservados.</p>
+        <p class="text-sm mt-1">Ubicación: Colectora Este 37568, Gral. Rodríguez</p>
+        <p class="text-sm">Contacto: bigspinbond@gmail.com</p>
+    </footer>
 
     <script>
         // --- CONSTANTES Y CONFIGURACIÓN ---
@@ -182,6 +290,13 @@
         let allReservations = [];
 
         // --- FUNCIONES DE UTILIDAD ---
+
+        /**
+         * Muestra u oculta el menú móvil.
+         */
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
 
         /**
          * Muestra un modal de mensaje en lugar de alert().
@@ -237,7 +352,6 @@
 
             try {
                 // Intento de conexión al Web App (GAS)
-                // Se espera que el GAS devuelva un array de arrays con la estructura [Fecha, Hora, Cancha, Nombre, Teléfono]
                 const response = await fetch(GOOGLE_APP_SCRIPT_URL + '?action=getReservations');
                 if (!response.ok) throw new Error('Respuesta de red no OK o App Script no publicada/acceso denegado.');
                 
@@ -269,12 +383,8 @@
 
         /**
          * Envía una nueva reserva al Google Sheet (usando GAS como backend).
-         * @param {object} reservationData Datos de la reserva.
          */
         async function sendReservationToGoogleSheets(reservationData) {
-            // NOTA IMPORTANTE: Para que esto funcione, DEBES configurar un Google Apps Script (GAS)
-            // en tu Google Sheet con una función doPost() que inserte los datos.
-
             try {
                 const dataToSend = {
                     action: 'addReservation',
@@ -294,8 +404,6 @@
                     body: new URLSearchParams(dataToSend),
                 });
                 
-                // Con no-cors no podemos verificar response.ok ni leer el cuerpo.
-                // Asumimos éxito si no hay error de red.
                 console.log("SIMULACIÓN: Solicitud POST enviada a Google Apps Script para guardar reserva.");
                 return true;
 
@@ -306,7 +414,7 @@
             }
         }
 
-        // --- LÓGICA DE INTERFAZ (Sin cambios en esta sección) ---
+        // --- LÓGICA DE INTERFAZ ---
 
         /**
          * Genera y renderiza el calendario de 3 semanas.
@@ -331,14 +439,11 @@
                 const dateString = formatDate(currentDate);
                 const dayOfWeek = currentDate.getDay(); // 0=Domingo, 1=Lunes, ..., 6=Sábado
                 const isSunday = dayOfWeek === 0;
-                // El turno se cierra si ya pasó la hora actual del día
                 const now = new Date();
-                const isPast = (currentDate.getTime() < now.getTime() && dateString === formatDate(now)) || currentDate.getTime() < now.getTime();
-
 
                 // Contenedor del Día
                 const dayDiv = document.createElement('div');
-                dayDiv.className = 'p-4 bg-gray-700 rounded-xl shadow-lg';
+                dayDiv.className = 'p-4 card rounded-xl shadow-lg';
 
                 // Título del Día
                 const header = document.createElement('h3');
@@ -400,10 +505,6 @@
 
         /**
          * Maneja el clic en un turno disponible.
-         * @param {string} dateString Fecha 'YYYY-MM-DD'.
-         * @param {string} timeString Hora 'HH:MM'.
-         * @param {string} court Cancha.
-         * @param {HTMLElement} clickedElement El elemento div clickeado.
          */
         function handleSlotClick(dateString, timeString, court, clickedElement) {
             // Deseleccionar el slot anterior (si existe)
@@ -444,7 +545,6 @@
 
         /**
          * Cambia la cancha activa y regenera el calendario.
-         * @param {string} court 'indoor' o 'outdoor'.
          */
         function selectCourt(court) {
             currentCourt = court;
@@ -473,7 +573,6 @@
 
         /**
          * Maneja el envío del formulario de reserva.
-         * @param {Event} e Evento de envío.
          */
         document.getElementById('reservation-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -506,8 +605,7 @@
             document.getElementById('confirm-button').disabled = true;
 
             try {
-                // 1. SIMULACIÓN: Enviar datos al "Backend" para insertar en Google Sheets
-                // Este paso intenta usar el GOOGLE_APP_SCRIPT_URL
+                // 1. Enviar datos al "Backend" (Google Apps Script)
                 const success = await sendReservationToGoogleSheets(reservationData);
 
                 if (success) {
@@ -533,7 +631,7 @@
                         "Tu solicitud ha sido registrada y se abrirá WhatsApp para que la envíes a Big Spin. ¡Recuerda enviar el mensaje para que el turno sea confirmado!"
                     );
 
-                    // 5. Resetear estado
+                    // 5. Resetear estado y recargar calendario
                     selectedSlot = null;
                     document.getElementById('name').value = '';
                     document.getElementById('phone').value = '';
@@ -541,8 +639,6 @@
                     document.getElementById('reservation-form').classList.add('hidden');
                     document.getElementById('no-selection-message').classList.remove('hidden');
 
-                    // 6. Volver a cargar el calendario (para que el slot aparezca como ocupado)
-                    // NOTA: Si usas el GAS real, el nuevo turno aparecerá inmediatamente como ocupado.
                     renderCalendar();
 
                 } else {
