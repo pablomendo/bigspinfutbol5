@@ -146,3 +146,487 @@
 
             <!-- Datos rápidos en la parte inferior del hero -->
             <div class="absolute bottom-0 left-0 right-0 p-4 card/50 backdrop-blur-sm">
+                <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm font-medium">
+                    <p class="text-primary">✓ Césped Sintético Pro</p>
+                    <p class="text-primary">✓ Iluminación LED</p>
+                    <p class="text-primary">✓ Colectora Norte, Acceso Oeste 37568, Gral. Rodríguez</p>
+                    <p class="text-primary">✓ Vestuarios & Bar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Fin Home / Hero Section -->
+
+
+    <!-- Content Wrapper -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-20">
+    
+        <!-- 2. Canchas e Instalaciones (Galería más organizada) -->
+        <section id="canchas" class="pt-16">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Nuestras <span class="text-primary">Canchas</span> e Instalaciones</h2>
+            
+            <div class="space-y-12">
+                
+                <!-- Cancha Techada -->
+                <div class="grid md:grid-cols-2 gap-8 items-center card p-6 rounded-2xl shadow-xl border border-gray-700">
+                    <img src="assets/cancha-techada.jpeg" alt="Cancha Techada" class="w-full h-72 object-cover rounded-xl shadow-lg border-2 border-primary/50">
+                    <div>
+                        <h3 class="text-3xl font-bold text-primary mb-3">Cancha Techada (Premium)</h3>
+                        <p class="text-gray-300">
+                            Fútbol 5 sin importar el clima. Nuestra cancha techada cuenta con un cerramiento total, **césped sintético de última generación** y un sistema de iluminación LED anti-reflejo que garantiza la mejor experiencia de juego, de día y de noche.
+                        </p>
+                        <ul class="text-gray-400 mt-4 space-y-1 text-sm">
+                            <li>• Ideal para lluvia o invierno.</li>
+                            <li>• Amplitud y seguridad en el juego.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cancha al Aire Libre -->
+                <div class="grid md:grid-cols-2 gap-8 items-center card p-6 rounded-2xl shadow-xl border border-gray-700">
+                    <div class="md:order-2">
+                        <img src="assets/cancha-exterior.jpeg" alt="Cancha Exterior de Noche" class="w-full h-72 object-cover rounded-xl shadow-lg border-2 border-primary/50">
+                    </div>
+                    <div class="md:order-1">
+                        <h3 class="text-3xl font-bold text-primary mb-3">Cancha al Aire Libre</h3>
+                        <p class="text-gray-300">
+                            Perfecta para disfrutar del aire libre y las noches. Ofrece un excelente **césped de alto tráfico** y potentes torres de iluminación profesional. El ambiente ideal para el fútbol entre amigos.
+                        </p>
+                         <ul class="text-gray-400 mt-4 space-y-1 text-sm">
+                            <li>• Clásico fútbol bajo las estrellas.</li>
+                            <li>• Amplia zona de calentamiento.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Vestuarios y Área Social -->
+                <h3 class="text-3xl font-bold text-center text-white pt-10">Servicios Adicionales</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                    <div class="card p-6 rounded-2xl shadow-xl flex flex-col items-start border border-gray-700">
+                         <img src="assets/vestuario.jpeg" alt="Vestuarios Modernos" class="w-full h-48 object-cover rounded-lg mb-4">
+                         <h4 class="text-xl font-bold text-white mb-2">Vestuarios Amplios y Limpios</h4>
+                         <p class="text-gray-400 text-sm">Duchas privadas, lockers y un ambiente impecable para que tu experiencia post-partido sea tan buena como el juego.</p>
+                    </div>
+                    <div class="card p-6 rounded-2xl shadow-xl flex flex-col items-start border border-gray-700">
+                        <img src="assets/area-descanso.jpeg" alt="Área de descanso y bar" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h4 class="text-xl font-bold text-white mb-2">Bar & Tercer Tiempo</h4>
+                        <p class="text-gray-400 text-sm">Disfruta de bebidas frías, snacks y un área de descanso cómoda y techada para analizar el partido con tu equipo.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- 3. Calendario de Reservas (Mantenemos la funcionalidad) -->
+        <section id="reservas" class="pt-16">
+            <h2 class="text-4xl font-bold text-center mb-10 text-white">Reservá Tu Turno <span class="text-primary">Online</span></h2>
+
+            <main class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                <!-- Calendar Area (3/4 width on desktop) -->
+                <div class="lg:col-span-3">
+                    <h3 class="text-2xl font-semibold mb-4 text-primary">Selecciona Cancha y Horario</h3>
+
+                    <!-- Court Selection Tabs -->
+                    <div id="court-selector" class="flex space-x-4 mb-6 p-2 card rounded-xl shadow-inner">
+                        <button data-court="indoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors bg-primary text-gray-900 shadow-lg" onclick="selectCourt('indoor')">
+                            Cancha Techada
+                        </button>
+                        <button data-court="outdoor" class="flex-1 py-2 px-4 rounded-lg font-medium transition-colors text-gray-300 hover:bg-gray-700" onclick="selectCourt('outdoor')">
+                            Cancha al Aire Libre
+                        </button>
+                    </div>
+
+                    <!-- Calendar Display -->
+                    <div id="calendar-container" class="space-y-6">
+                        <!-- Days will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Sidebar/Reservation Form (1/4 width on desktop) -->
+                <aside class="lg:col-span-1 sticky top-20 h-fit">
+                    <div class="p-6 card rounded-xl shadow-2xl border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4 text-primary">Confirmar Reserva</h3>
+
+                        <div id="selected-reservation" class="mb-4 p-3 bg-gray-900 rounded-lg hidden">
+                            <p class="text-gray-400 text-sm">Cancha:</p>
+                            <p id="reserve-court" class="text-lg font-bold mb-1"></p>
+                            <p class="text-gray-400 text-sm">Fecha y Hora:</p>
+                            <p id="reserve-datetime" class="text-lg font-bold text-primary"></p>
+                        </div>
+
+                        <div id="no-selection-message" class="mb-4 p-3 bg-gray-900 rounded-lg text-center text-gray-400">
+                            Selecciona un turno disponible en el calendario.
+                        </div>
+
+                        <!-- Reservation Form -->
+                        <form id="reservation-form" class="mt-4 hidden">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Tu Nombre:</label>
+                                <input type="text" id="name" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: Juan Pérez">
+                            </div>
+                            <div class="mb-6">
+                                <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Teléfono (con código de área):</label>
+                                <input type="tel" id="phone" required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-primary focus:ring-primary text-white" placeholder="Ej: 5491123456789">
+                                <p class="text-xs text-gray-500 mt-1">Lo usaremos para abrir WhatsApp y confirmar la reserva.</p>
+                            </div>
+
+                            <button type="submit" id="confirm-button" class="w-full py-3 bg-primary text-gray-900 font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition-colors">
+                                Confirmar y Abrir WhatsApp
+                            </button>
+                        </form>
+
+                        <!-- Modal / Message Box for Confirmation -->
+                        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal()">
+                            <div class="card p-6 rounded-xl shadow-2xl max-w-sm w-full" onclick="event.stopPropagation()">
+                                <h3 id="modal-title" class="text-xl font-semibold mb-4 text-primary"></h3>
+                                <p id="modal-message" class="text-gray-300 mb-6"></p>
+                                <button class="w-full py-2 bg-primary text-gray-900 font-semibold rounded-lg" onclick="closeModal()">Cerrar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+            </main>
+        </section>
+
+    </div>
+    <!-- Fin Content Wrapper -->
+    
+    <!-- Footer Section -->
+    <footer class="mt-8 p-6 text-center text-gray-400 border-t border-gray-700 card">
+        <p>&copy; 2025 Big Spin. Todos los derechos reservados.</p>
+        <p class="text-sm mt-1">Ubicación: Colectora Norte, Acceso Oeste 37568, Gral. Rodríguez</p>
+        <p class="text-sm">Contacto: bigspinbond@gmail.com</p>
+    </footer>
+
+    <script>
+        // --- CONSTANTES Y CONFIGURACIÓN ---
+        const OPEN_HOUR = 10;
+        const CLOSE_HOUR = 23; 
+        const DAYS_TO_SHOW = 21;
+        const COURT_NAMES = {
+            indoor: 'Cancha Techada',
+            outdoor: 'Cancha al Aire Libre'
+        };
+        const ADMIN_EMAIL = "bigspinbond@gmail.com";
+        const ADMIN_WHATSAPP_NUMBER = "5491136487595"; 
+
+        // --- GOOGLE SHEETS CONFIGURACIÓN (¡URL DE TU APLICACIÓN WEB YA PEGADA!) ---
+        const SHEET_ID = '1nJMn9kyf_c4AFsmqD5cjjC4_-ggdWukV';
+        
+        // ***************************************************************
+        // !!! URL DE LA APLICACIÓN WEB GENERADA EN GOOGLE APPS SCRIPT !!!
+        // ***************************************************************
+        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXmIzmE2IhvlzJZnWXLFZ8_ZYLZvEkJDhrmeV5sJtPSfz7qMMKWTfJop5joXcB5x9/exec';
+
+        // --- ESTADO DE LA APLICACIÓN ---
+        let currentCourt = 'indoor';
+        let selectedSlot = null; 
+        let allReservations = [];
+
+        // --- FUNCIONES DE UTILIDAD (Resto del código) ---
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function showModal(title, message) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        const formatDate = (date) => date.toISOString().split('T')[0];
+
+        const formatDayHeader = (date) => {
+            return date.toLocaleDateString('es-AR', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long'
+            });
+        };
+
+        // --- CONEXIÓN CON GOOGLE SHEETS (Vía Google Apps Script) ---
+
+        async function fetchReservationsFromGoogleSheets() {
+            const mockData = [
+                ['2025-12-11', '19:00', 'indoor', 'Carlos G.', '11...'], 
+                ['2025-12-11', '21:00', 'outdoor', 'Daniel F.', '11...'],
+                ['2025-12-12', '10:00', 'indoor', 'Ezequiel P.', '11...'],
+                ['2025-12-15', '20:00', 'indoor', 'Fede R.', '11...'],
+            ];
+
+            try {
+                // Fetch to your live Google Apps Script URL
+                const response = await fetch(GOOGLE_APP_SCRIPT_URL + '?action=getReservations');
+                if (!response.ok) throw new Error('Respuesta de red no OK o App Script no publicado.');
+                
+                const dataFromSheet = await response.json();
+                
+                if (Array.isArray(dataFromSheet)) {
+                    console.log("Datos cargados exitosamente desde la URL de Apps Script.");
+                    return dataFromSheet.map(row => ({
+                        date: row[0],
+                        time: row[1],
+                        court: row[2],
+                        name: row[3]
+                    }));
+                } else {
+                    throw new Error('Formato de datos de Sheets inesperado. Usando mock data.');
+                }
+            } catch (error) {
+                console.warn(`[ADVERTENCIA] Error al cargar la data. Usando datos de simulación. Error: ${error.message}`);
+                 return mockData.map(row => ({
+                    date: row[0],
+                    time: row[1],
+                    court: row[2],
+                    name: row[3]
+                }));
+            }
+        }
+
+        async function sendReservationToGoogleSheets(reservationData) {
+            try {
+                const dataToSend = {
+                    action: 'addReservation',
+                    date: reservationData.date,
+                    time: reservationData.time,
+                    court: reservationData.court,
+                    name: reservationData.name,
+                    phone: reservationData.phone
+                };
+                
+                const response = await fetch(GOOGLE_APP_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(dataToSend),
+                });
+                
+                console.log("Solicitud POST enviada a Google Apps Script para guardar reserva.");
+                return true;
+
+            } catch (error) {
+                console.error("Error al enviar reserva al Web App (GAS):", error);
+                showModal("Error de Conexión", "No se pudo enviar la reserva. Revisa la configuración de Google Apps Script.");
+                return false;
+            }
+        }
+
+        // --- LÓGICA DE INTERFAZ (Se mantiene igual) ---
+
+        async function renderCalendar() {
+            try {
+                allReservations = await fetchReservationsFromGoogleSheets();
+            } catch (error) {
+                console.error("Error al cargar reservas:", error);
+                showModal("Error de Conexión", "No se pudieron cargar los horarios. Intenta recargar la página.");
+                return;
+            }
+
+            const container = document.getElementById('calendar-container');
+            container.innerHTML = '';
+            let currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+
+            for (let i = 0; i < DAYS_TO_SHOW; i++) {
+                const dateString = formatDate(currentDate);
+                const dayOfWeek = currentDate.getDay(); 
+                const isSunday = dayOfWeek === 0;
+                const now = new Date();
+
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'p-4 card rounded-xl shadow-lg';
+
+                const header = document.createElement('h3');
+                header.className = 'text-xl font-bold mb-3 border-b pb-2 border-gray-600 capitalize';
+                header.textContent = formatDayHeader(currentDate);
+                dayDiv.appendChild(header);
+
+                const slotsGrid = document.createElement('div');
+                slotsGrid.className = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 gap-2';
+
+                for (let h = OPEN_HOUR; h <= CLOSE_HOUR; h++) {
+                    const timeString = `${String(h).padStart(2, '0')}:00`;
+                    const slotId = `${dateString}-${timeString}-${currentCourt}`;
+                    const isReserved = allReservations.some(r =>
+                        r.date === dateString &&
+                        r.time === timeString &&
+                        r.court === currentCourt
+                    );
+
+                    let statusClass = 'available';
+                    let statusText = 'Reservar';
+
+                    const slotDateTime = new Date(dateString + 'T' + timeString + ':00');
+                    const isTimePast = dateString === formatDate(now) && slotDateTime.getTime() < now.getTime();
+
+
+                    if (isSunday || isTimePast) {
+                        statusClass = 'closed';
+                        statusText = 'Cerrado';
+                    } else if (isReserved) {
+                        statusClass = 'reserved';
+                        statusText = 'Ocupado';
+                    }
+
+                    const slotDiv = document.createElement('div');
+                    slotDiv.id = slotId;
+                    slotDiv.className = `hour-slot text-center py-2 rounded-lg font-semibold text-sm ${statusClass}`;
+                    slotDiv.innerHTML = `<span class="block">${timeString}</span><span class="text-xs font-normal">${statusText}</span>`;
+
+                    if (statusClass === 'available') {
+                        slotDiv.addEventListener('click', () => handleSlotClick(dateString, timeString, currentCourt, slotDiv));
+                    }
+
+                    slotsGrid.appendChild(slotDiv);
+                }
+
+                dayDiv.appendChild(slotsGrid);
+                container.appendChild(dayDiv);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        }
+
+        function handleSlotClick(dateString, timeString, court, clickedElement) {
+            if (selectedSlot) {
+                const prevSlotId = `${selectedSlot.date}-${selectedSlot.time}-${selectedSlot.court}`;
+                const prevElement = document.getElementById(prevSlotId);
+                if (prevElement) {
+                    prevElement.classList.remove('selected-slot');
+                }
+            }
+
+            if (selectedSlot && selectedSlot.date === dateString && selectedSlot.time === timeString && selectedSlot.court === court) {
+                selectedSlot = null;
+                document.getElementById('selected-reservation').classList.add('hidden');
+                document.getElementById('reservation-form').classList.add('hidden');
+                document.getElementById('no-selection-message').classList.remove('hidden');
+            } else {
+                selectedSlot = { date: dateString, time: timeString, court: court };
+                clickedElement.classList.add('selected-slot');
+
+                const selectedDate = new Date(dateString + 'T' + timeString);
+                const formattedDateTime = selectedDate.toLocaleDateString('es-AR', {
+                    weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit'
+                }) + ' hs';
+
+                document.getElementById('reserve-court').textContent = COURT_NAMES[court];
+                document.getElementById('reserve-datetime').textContent = formattedDateTime.charAt(0).toUpperCase() + formattedDateTime.slice(1);
+                document.getElementById('selected-reservation').classList.remove('hidden');
+                document.getElementById('reservation-form').classList.remove('hidden');
+                document.getElementById('no-selection-message').classList.add('hidden');
+            }
+        }
+
+        function selectCourt(court) {
+            currentCourt = court;
+            selectedSlot = null;
+
+            const selector = document.getElementById('court-selector');
+            Array.from(selector.children).forEach(btn => {
+                if (btn.dataset.court === court) {
+                    btn.classList.remove('text-gray-300', 'hover:bg-gray-700');
+                    btn.classList.add('bg-primary', 'text-gray-900', 'shadow-lg');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-gray-900', 'shadow-lg');
+                    btn.classList.add('text-gray-300', 'hover:bg-gray-700');
+                }
+            });
+
+            document.getElementById('selected-reservation').classList.add('hidden');
+            document.getElementById('reservation-form').classList.add('hidden');
+            document.getElementById('no-selection-message').classList.remove('hidden');
+
+            renderCalendar();
+        }
+
+        document.getElementById('reservation-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!selectedSlot) {
+                showModal("Error", "Por favor, selecciona un turno antes de confirmar.");
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!name || !phone) {
+                showModal("Faltan Datos", "Debes completar tu Nombre y Teléfono.");
+                return;
+            }
+
+            const reservationData = {
+                date: selectedSlot.date,
+                time: selectedSlot.time,
+                court: selectedSlot.court,
+                courtName: COURT_NAMES[selectedSlot.court],
+                name: name,
+                phone: phone,
+                whatsappNumber: ADMIN_WHATSAPP_NUMBER
+            };
+
+            document.getElementById('confirm-button').textContent = "Procesando...";
+            document.getElementById('confirm-button').disabled = true;
+
+            try {
+                const success = await sendReservationToGoogleSheets(reservationData);
+
+                if (success) {
+                    const whatsappMessage = `¡Hola Big Spin! Quiero reservar un turno.\n\n` +
+                        `*Detalles de la Reserva:*\n` +
+                        `Cancha: ${reservationData.courtName}\n` +
+                        `Fecha: ${new Date(reservationData.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}\n` +
+                        `Hora: ${reservationData.time} hs\n` +
+                        `\n*Datos del Cliente:*\n` +
+                        `Nombre: ${reservationData.name}\n` +
+                        `Teléfono: ${reservationData.phone}\n` +
+                        `\nPor favor, confírmenme la reserva. ¡Gracias!`;
+
+                    const whatsappUrl = `https://wa.me/${reservationData.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                    window.open(whatsappUrl, '_blank');
+
+                    showModal(
+                        "Reserva Pendiente de Confirmación",
+                        "Tu solicitud ha sido registrada y se abrirá WhatsApp para que la envíes a Big Spin. ¡Recuerda enviar el mensaje para que el turno sea confirmado!"
+                    );
+
+                    selectedSlot = null;
+                    document.getElementById('name').value = '';
+                    document.getElementById('phone').value = '';
+                    document.getElementById('selected-reservation').classList.add('hidden');
+                    document.getElementById('reservation-form').classList.add('hidden');
+                    document.getElementById('no-selection-message').classList.remove('hidden');
+
+                    renderCalendar();
+
+                } else {
+                    showModal("Error en el Servidor", "Hubo un problema al registrar la reserva. Intenta de nuevo.");
+                }
+
+            } catch (error) {
+                console.error("Error en la reserva:", error);
+                showModal("Error Crítico", "No se pudo completar el proceso de reserva. Revisa tu conexión.");
+                return false;
+            } finally {
+                document.getElementById('confirm-button').textContent = "Confirmar y Abrir WhatsApp";
+                document.getElementById('confirm-button').disabled = false;
+            }
+        });
+
+        window.onload = function() {
+            console.log(`Punto de referencia: ${new Date().toLocaleString('es-AR')}`);
+            selectCourt(currentCourt);
+        };
+    </script>
+</body>
+</html>
